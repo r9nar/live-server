@@ -1,0 +1,11 @@
+node_modules
+dist
+tests
+testdata
+examples
+scripts
+*.log
+.git
+.gitignore
+.env
+.env.*

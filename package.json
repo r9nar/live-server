@@ -1,0 +1,79 @@
+{
+  "name": "piratetok-live-js",
+  "version": "0.3.0",
+  "description": "TikTok Live WebSocket connector — real-time chat, gifts, likes, and viewer events. No authentication required.",
+  "author": "Zmole Cristian",
+  "license": "0BSD",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./server": {
+      "import": "./dist/server/index.js",
+      "types": "./dist/server/index.d.ts"
+    }
+  },
+  "scripts": {
+    "prebuild": "node discipline/scanner.js",
+    "build": "tsc",
+    "build:desktop": "tsc -p tsconfig.desktop.json",
+    "check": "node discipline/scanner.js",
+    "server": "node --env-file-if-exists=.env dist/server/main.js",
+    "start": "node --env-file-if-exists=.env dist/server/main.js",
+    "loadtest": "node scripts/load-test.mjs",
+    "prepublishOnly": "npm run build",
+    "test": "npm run build && node --test tests/replay_test.mjs tests/disconnect_test.mjs tests/ttwid_test.mjs tests/supervisor_test.mjs tests/wss_local_test.mjs tests/audience_test.mjs tests/events_test.mjs tests/server_security_test.mjs tests/server_auth_test.mjs tests/api_client_test.mjs tests/proxy_test.mjs tests/api_parse_test.mjs tests/client_profile_test.mjs",
+    "test:integration": "npm run build && node --test tests/api_integration_test.mjs",
+    "test:wss": "npm run build && node --test tests/wss_smoke_test.mjs",
+    "test:load": "npm run build && node --test tests/multi_stream_load_test.mjs",
+    "test:all": "npm run build && node --test tests/replay_test.mjs tests/disconnect_test.mjs tests/api_integration_test.mjs tests/wss_smoke_test.mjs tests/multi_stream_load_test.mjs"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PirateTok/live-js"
+  },
+  "homepage": "https://piratetok.rosint.org",
+  "funding": "https://piratetok.rosint.org/donate.html",
+  "bugs": {
+    "url": "https://github.com/PirateTok/live-js/issues"
+  },
+  "keywords": [
+    "tiktok",
+    "tiktok-live",
+    "live",
+    "stream",
+    "chat",
+    "gifts",
+    "websocket",
+    "protobuf",
+    "realtime",
+    "piratetok",
+    "events"
+  ],
+  "dependencies": {
+    "https-proxy-agent": "^9.1.0",
+    "protobufjs": "^7.4.0",
+    "socket.io": "^4.8.4",
+    "socks-proxy-agent": "^10.1.0",
+    "undici": "^8.11.2",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/ws": "^8.5.0",
+    "socket.io-client": "^4.8.4",
+    "typescript": "^5.6.0"
+  },
+  "engines": {
+    "node": ">=22.19.0"
+  }
+}
